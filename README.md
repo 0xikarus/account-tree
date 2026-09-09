@@ -28,13 +28,3 @@ child key = keccak256(signature)
 ```
 
 Local private-key signing is deterministic. Connected wallets must return identical signature bytes to recover identical children; verify repeatability with your wallet before relying on it. The nonce here is a derivation index, not a transaction nonce or BIP-32 path. EOA wallets only.
-
-## What stays private
-
-The app keeps keys in tab memory and does not save them in browser storage or send them to an application server. Connected-wallet requests go through your wallet extension. Treat derivation signatures as secrets: anyone with one can recover that child and its descendants.
-
-Deterministic generation helps avoid losing access to generated wallets. It does not prevent an agent from spending funds or exposing keys. Give each agent only the child keys it needs, and keep the root under your control.
-
-## Website files
-
-`index.html` and `app.js` are the complete website. The Pages workflow uploads only these two files and runs only when manually dispatched. Hosting is not enabled yet.
