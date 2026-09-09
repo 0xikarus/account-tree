@@ -35,7 +35,7 @@
   <ul id="tree" aria-label="Account directories"></ul>
   <hr>
   <p><small>Keys stay in this tab's memory. Reload or clear to discard them. Revealed or copied keys are secrets.</small></p>
-  <p><small>Child key = keccak256(personal_sign(prefix + index)), with no added separators. An empty prefix matches this repo. This is not a BIP-32 path or a transaction nonce.
+  <p><small>Child key = keccak256(personal_sign(prefix + index)), with no added separators. An empty prefix signs just the decimal index. This is not a BIP-32 path or a transaction nonce.
     Wallet roots request one signature per child; descendants sign locally. Signatures are secrets too: anyone with a derivation signature can recover that child and its descendants.
     Recovery requires the same signature bytes; some wallets may sign differently. EOA wallets only.</small></p>
   <script type="module" src="./app.js"></script>

@@ -1,0 +1,13 @@
+{
+  "name": "account-tree",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun server.js",
+    "build": "bun build.js",
+    "test": "bun test test"
+  },
+  "dependencies": { "viem": "^2.34.0" },
+  "engines": { "bun": ">=1.3.14" }
+}

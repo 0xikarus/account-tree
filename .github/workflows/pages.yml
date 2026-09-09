@@ -1,6 +1,8 @@
 name: Publish account tree
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -15,10 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - run: bun install --frozen-lockfile
+      - run: bun test
+      - run: bun run build
       - name: Stage website files
         run: |
           mkdir "$RUNNER_TEMP/account-tree-pages"
-          cp index.html app.js "$RUNNER_TEMP/account-tree-pages/"
+          cp dist/index.html dist/app.js "$RUNNER_TEMP/account-tree-pages/"
       - uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ runner.temp }}/account-tree-pages

@@ -6,7 +6,7 @@ Trust your agents with a repeatable way to generate wallets. Account Tree derive
 
 ## Use it
 
-Serve this directory with any static web server on localhost or HTTPS, then open `index.html`. Everything runs in your browser using locally bundled viem.
+Open [Account Tree](https://0xikarus.github.io/account-tree/). Everything runs in your browser using locally bundled viem.
 
 1. Connect a browser wallet or enter a private key.
 2. Choose a prefix, such as `agent:research:`, and a nonce, such as `0`.
@@ -18,6 +18,19 @@ Delete removes a wallet and its descendants from the view. Clear discards the wh
 ## Hardware wallets
 
 You can also use a hardware wallet through a compatible browser wallet, such as [Ledger or Trezor connected to MetaMask](https://support.metamask.io/more-web3/wallets/how-to-connect-a-trezor-or-ledger-hardware-wallet). Select its account and approve the message on your device. The root key stays on the device; derived wallets are local accounts in the browser.
+
+## Run from source
+
+Install [Bun](https://bun.sh), then run:
+
+```sh
+bun install
+bun start
+```
+
+Open `http://127.0.0.1:3210`. The interface lives in `src/app.js`, derivation in `src/derive.js`, and the page in `index.html`.
+
+`bun test` checks derivation behavior. `bun run build` creates the static website in `dist/`. GitHub Pages builds from source on pushes to `main`.
 
 ## Account tree with viem
 
