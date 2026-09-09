@@ -11,7 +11,7 @@
     li { margin: 8px 0; }
     code { overflow-wrap: anywhere; }
     input[type=number] { width: 10em; }
-    #status { position: sticky; top: 0; z-index: 1; padding: 12px; border: 2px solid; background: #fff8cc; font-weight: bold; overflow-wrap: anywhere; }
+    #status { color: #555; overflow-wrap: anywhere; }
     #status::before { content: "Current action: "; }
     .key { display: block; margin: 8px 0; }
   </style>
@@ -29,10 +29,10 @@
     <button type="submit">Add root</button>
   </form>
   <p><button id="clear" type="button">Clear all accounts</button></p>
-  <p id="status" role="status" aria-live="polite">Ready.</p>
   <hr>
   <p id="empty">No accounts yet.</p>
   <ul id="tree" aria-label="Account directories"></ul>
+  <p id="status" role="status" aria-live="polite">Ready.</p>
   <hr>
   <p><small>Keys stay in this tab's memory. Reload or clear to discard them. Revealed or copied keys are secrets.</small></p>
   <p><small>Child key = keccak256(personal_sign(prefix + index)), with no added separators. An empty prefix signs just the decimal index. This is not a BIP-32 path or a transaction nonce.
