@@ -1,0 +1,38 @@
+name: Publish account tree
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Stage website files
+        run: |
+          mkdir "$RUNNER_TEMP/account-tree-pages"
+          cp index.html app.js "$RUNNER_TEMP/account-tree-pages/"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/account-tree-pages
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

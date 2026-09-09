@@ -1,0 +1,40 @@
+# Agent-ready account derivation
+
+Give your agents accounts you can recover.
+
+Trust your agents with a repeatable way to generate wallets. Account Tree derives EVM accounts from a root wallet and a chosen prefix and nonce, so a lost agent session does not have to mean lost access to funds. Keep the root and the exact derivation steps, and recreate the same accounts whenever you need them.
+
+## Use it
+
+Serve this directory with any static web server on localhost or HTTPS, then open `index.html`. Everything runs in your browser using locally bundled viem.
+
+1. Connect a browser wallet or enter a private key.
+2. Choose a prefix, such as `agent:research:`, and a nonce, such as `0`.
+3. Review the exact message and derive the account.
+4. Expand a child to derive further descendants. Copy addresses or reveal local private keys as needed.
+
+Delete removes a wallet and its descendants from the view. Clear discards the whole tree. Neither action changes on-chain balances; the same derivation can recreate the accounts.
+
+## Give agents a recovery recipe
+
+Record the root address and, for every level, the exact prefix, nonce, and resulting address. Store the root key securely outside the agent's disposable session. A root address alone cannot recover a wallet.
+
+For example, prefix `agent:research:` and nonce `0` sign `agent:research:0`. No separators are added, and whitespace is preserved. Each child becomes the parent for the next level.
+
+```text
+message   = prefix + decimal nonce
+signature = parent.signMessage(message)  // EIP-191 personal_sign
+child key = keccak256(signature)
+```
+
+Local private-key signing is deterministic. Connected wallets must return identical signature bytes to recover identical children; verify repeatability with your wallet before relying on it. The nonce here is a derivation index, not a transaction nonce or BIP-32 path. EOA wallets only.
+
+## What stays private
+
+The app keeps keys in tab memory and does not save them in browser storage or send them to an application server. Connected-wallet requests go through your wallet extension. Treat derivation signatures as secrets: anyone with one can recover that child and its descendants.
+
+Deterministic generation helps avoid losing access to generated wallets. It does not prevent an agent from spending funds or exposing keys. Give each agent only the child keys it needs, and keep the root under your control.
+
+## Website files
+
+`index.html` and `app.js` are the complete website. The Pages workflow uploads only these two files and runs only when manually dispatched. Hosting is not enabled yet.
