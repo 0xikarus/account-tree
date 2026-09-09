@@ -43,7 +43,7 @@ function renderNode(record, path, container, source, onDelete) {
   const item = element("li");
   const directory = element("details");
   const summary = element("summary");
-  summary.append(element("a", `${path}/`), " ", element("code", record.account.address), ` (${source})`);
+  summary.append(element("span", `${path}/`), " ", element("code", record.account.address), ` (${source})`);
   if (onDelete) {
     summary.append(" ", button("Delete", (event) => {
       event.preventDefault();
